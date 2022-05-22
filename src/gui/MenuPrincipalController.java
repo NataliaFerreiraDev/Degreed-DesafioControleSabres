@@ -16,7 +16,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * 
+ * @author Natalia Ferreira DAngelo
+ * Menu principal do sistema de controle de sabres.
+ *
+ */
 public class MenuPrincipalController implements Initializable {
 
 	@FXML
@@ -37,22 +42,22 @@ public class MenuPrincipalController implements Initializable {
 
 	@FXML
 	public void onMenuItemCadastrarAction() {
-		System.out.println("Cadastrado!!!!");
+		loadView("/gui/CadastrarSabres.fxml");
 	}
 
 	@FXML
 	public void onMenuItemAtualizarAction() {
-		System.out.println("Atualizado");
+		loadView("/gui/AtualizarSabres.fxml");
 	}
 	
 	@FXML
 	public void onMenuItemListarAction() {
-		System.out.println("Lista de Sabres");
+		loadView("/gui/ListaSabres.fxml");
 	}
 	
 	@FXML
 	public void onMenuItemPesquisarAction() {
-		System.out.println("Pesquisando....");
+		loadView("/gui/PesquisaSabres.fxml");
 	}
 
 	@FXML
