@@ -20,8 +20,9 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Consulta">
                      <items>
-                        <MenuItem fx:id="menuItemListar" mnemonicParsing="false" onAction="#onMenuItemListarAction" text="Listar" />
-                        <MenuItem fx:id="menuItemPesquisar" mnemonicParsing="false" onAction="#onMenuItemPesquisarAction" text="Pesquisar" />
+                        <MenuItem fx:id="menuItemListarSabres" mnemonicParsing="false" onAction="#onMenuItemListarSabresAction" text="Listar Sabres" />
+                        <MenuItem fx:id="menuItemListarManutencoes" mnemonicParsing="false" onAction="#onMenuItemListarManutencoesAction" text="Listar Manutenções" />
+                        <MenuItem fx:id="menuItemPesquisarSabres" mnemonicParsing="false" onAction="#onMenuItemPesquisarSabresAction" text="Pesquisar Sabres" />
                      </items>
                   </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">

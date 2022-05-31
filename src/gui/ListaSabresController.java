@@ -1,20 +1,26 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.entities.Manutencao;
+import model.entities.Modelo;
 import model.entities.Sabres;
+import model.entities.Situacao;
+import model.services.SabresService;
 
 public class ListaSabresController implements Initializable {
+	
+	private SabresService service;
 	
 	@FXML
 	private TableView<Sabres> tableViewSabres;
@@ -23,13 +29,13 @@ public class ListaSabresController implements Initializable {
 	private TableColumn<Sabres, Integer> tableColumnId;
 	
 	@FXML
-	private TableColumn<Sabres, String> tableColumnModelo;
+	private TableColumn<Sabres, Modelo> tableColumnModelo;
 	
 	@FXML
 	private TableColumn<Sabres, String> tableColumnDataFabricacao;
 	
 	@FXML
-	private TableColumn<Sabres, String> tableColumnSituacao;
+	private TableColumn<Sabres, Situacao> tableColumnSituacao;
 	
 	@FXML
 	private TableColumn<Sabres, String> tableColumnJedi;
@@ -49,24 +55,10 @@ public class ListaSabresController implements Initializable {
 	@FXML
 	private TableColumn<Sabres, String> tableColumnValidadeSensor;
 	
-	@FXML
-	private TableView<Manutencao> tableViewManutencoes;
+	private ObservableList<Sabres> obsList;
 	
-	@FXML
-	private TableColumn<Sabres, String> tableColumnIdManutencao;
-	
-	@FXML
-	private TableColumn<Sabres, String> tableColumnDataManutencao;
-	
-	@FXML
-	private TableColumn<Sabres, String> tableColumnResponsavel;
-	
-	@FXML
-	private Button btnNew;
-	
-	@FXML 
-	public void onBtnNewAction() {
-		System.out.println("onBtnNewAction");
+	public void setSabresService(SabresService service) {
+		this.service = service;
 	}
 	
 	@Override
@@ -85,13 +77,18 @@ public class ListaSabresController implements Initializable {
 		tableColumnGalaxia.setCellValueFactory(new PropertyValueFactory<>("galaxia"));
 		tableColumnModeloSensor.setCellValueFactory(new PropertyValueFactory<>("modeloSensor"));
 		tableColumnValidadeSensor.setCellValueFactory(new PropertyValueFactory<>("validadeSensor"));
-		tableColumnIdManutencao.setCellValueFactory(new PropertyValueFactory<>("idManutencao"));
-		tableColumnDataManutencao.setCellValueFactory(new PropertyValueFactory<>("dataManutencao"));
-		tableColumnResponsavel.setCellValueFactory(new PropertyValueFactory<>("responsavel"));
 		
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewSabres.prefHeightProperty().bind(stage.heightProperty());
-		
+	}
+	
+	public void updateTableViewSabres() {
+		if(service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+		List<Sabres> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewSabres.setItems(obsList);
 	}
 
 }

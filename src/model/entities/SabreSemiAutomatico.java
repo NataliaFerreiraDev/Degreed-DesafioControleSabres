@@ -1,29 +1,40 @@
 package model.entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.text.ParseException;
+import java.util.Date;
 
 public class SabreSemiAutomatico extends Sabres {
 	
-	private List<GalaxiasManutencoes> listaGalaxiasManutencoes;
+	private String sistema;
 	
-	public SabreSemiAutomatico() {
+	private String galaxia;
+	
+	public SabreSemiAutomatico() throws ParseException {
 		super();
 	}
-
-	public SabreSemiAutomatico(Integer id, Modelo modelo, LocalDateTime dataFabricacao, Situacao situacao,
-			List<Manutencao> manutencoes, String jedi, List<GalaxiasManutencoes> listaGalaxiasManutencoes) {
-		super(id, modelo, dataFabricacao, situacao, manutencoes, jedi);
+	
+	public SabreSemiAutomatico(Integer id, Modelo modelo, Date dataFabricacao, Situacao situacao, String jedi,
+			String sistema, String galaxia) throws ParseException {
+		super(id, modelo, dataFabricacao, situacao, jedi);
 		modelo = Modelo.SEMIAUTOMATICO;
-		this.listaGalaxiasManutencoes = listaGalaxiasManutencoes;
+		this.sistema = sistema;
+		this.galaxia = galaxia;
 	}
 
-	public List<GalaxiasManutencoes> getListaGalaxiasManutencoes() {
-		return listaGalaxiasManutencoes;
+	public String getSistema() {
+		return sistema;
 	}
 
-	public void setListaGalaxiasManutencoes(List<GalaxiasManutencoes> listaGalaxiasManutencoes) {
-		this.listaGalaxiasManutencoes = listaGalaxiasManutencoes;
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+
+	public String getGalaxia() {
+		return galaxia;
+	}
+
+	public void setGalaxia(String galaxia) {
+		this.galaxia = galaxia;
 	}
 	
 }

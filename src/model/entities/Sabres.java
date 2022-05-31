@@ -1,28 +1,25 @@
 package model.entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.text.ParseException;
+import java.util.Date;
 
 public abstract class Sabres {
 
 	private Integer id;
 	private Modelo modelo;
-	private LocalDateTime dataFabricacao;
+	private Date dataFabricacao;
 	private Situacao situacao;
-	private List<Manutencao> manutencoes;
 	private String jedi;
 	
-	public Sabres() {
+	public Sabres() throws ParseException {
 	}
 
-	public Sabres(Integer id, Modelo modelo, LocalDateTime dataFabricacao, Situacao situacao,
-			List<Manutencao> manutencoes, String jedi) {
+	public Sabres(Integer id, Modelo modelo, Date dataFabricacao, Situacao situacao, String jedi) throws ParseException {
 		super();
 		this.id = id;
 		this.modelo = modelo;
 		this.dataFabricacao = dataFabricacao;
 		this.situacao = situacao;
-		this.manutencoes = manutencoes;
 		this.jedi = jedi;
 	}
 	
@@ -42,11 +39,11 @@ public abstract class Sabres {
 		this.modelo = modelo;
 	}
 
-	public LocalDateTime getDataFabricacao() {
+	public Date getDataFabricacao() {
 		return dataFabricacao;
 	}
 
-	public void setDataFabricacao(LocalDateTime dataFabricacao) {
+	public void setDataFabricacao(Date dataFabricacao) {
 		this.dataFabricacao = dataFabricacao;
 	}
 
@@ -56,14 +53,6 @@ public abstract class Sabres {
 
 	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
-	}
-
-	public List<Manutencao> getManutencoes() {
-		return manutencoes;
-	}
-
-	public void setManutencoes(List<Manutencao> manutencoes) {
-		this.manutencoes = manutencoes;
 	}
 
 	public String getJedi() {

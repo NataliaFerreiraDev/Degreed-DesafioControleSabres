@@ -1,20 +1,19 @@
 package model.entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.text.ParseException;
+import java.util.Date;
 
 public class SabreAutomatico extends Sabres {
 	
 	private String modeloSensor;
-	private LocalDateTime validadeSensor;
+	private Date validadeSensor;
 	
-	public SabreAutomatico() {
+	public SabreAutomatico() throws ParseException {
 		super();
 	}
 
-	public SabreAutomatico(Integer id, Modelo modelo, LocalDateTime dataFabricacao, Situacao situacao,
-			List<Manutencao> manutencoes, String jedi, String modeloSensor, LocalDateTime validadeSensor) {
-		super(id, modelo, dataFabricacao, situacao, manutencoes, jedi);
+	public SabreAutomatico(Integer id, Modelo modelo, Date dataFabricacao, Situacao situacao, String jedi, String modeloSensor, Date validadeSensor) throws ParseException {
+		super(id, modelo, dataFabricacao, situacao, jedi);
 		modelo = Modelo.AUTOMATICO;
 		this.modeloSensor = modeloSensor;
 		this.validadeSensor = validadeSensor;
@@ -28,11 +27,11 @@ public class SabreAutomatico extends Sabres {
 		this.modeloSensor = modeloSensor;
 	}
 
-	public LocalDateTime getValidadeSensor() {
+	public Date getValidadeSensor() {
 		return validadeSensor;
 	}
 
-	public void setDataValidadeSensor(LocalDateTime validadeSensor) {
+	public void setDataValidadeSensor(Date validadeSensor) {
 		this.validadeSensor = validadeSensor;
 	}
 	

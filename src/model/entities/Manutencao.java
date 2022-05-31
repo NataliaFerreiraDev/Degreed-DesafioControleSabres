@@ -1,18 +1,21 @@
 package model.entities;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Manutencao {
 	
 	private Integer idManutencao;
-	private LocalDateTime dataManutencao;
+	private Integer idSabre;
+	private Date dataManutencao;
 	private String responsavel;
 	
 	public Manutencao() {
 	}
 
-	public Manutencao(Integer idManutencao, LocalDateTime dataManutencao, String responsavel) {
+	public Manutencao(Integer idManutencao, Integer idSabre, Date dataManutencao, String responsavel) {
+		super();
 		this.idManutencao = idManutencao;
+		this.idSabre = idSabre;
 		this.dataManutencao = dataManutencao;
 		this.responsavel = responsavel;
 	}
@@ -25,11 +28,11 @@ public class Manutencao {
 		this.idManutencao = idManutencao;
 	}
 	
-	public LocalDateTime getDataManutencao() {
+	public Date getDataManutencao() {
 		return dataManutencao;
 	}
 	
-	public void setDataManutencao(LocalDateTime dataManutencao) {
+	public void setDataManutencao(Date dataManutencao) {
 		this.dataManutencao = dataManutencao;
 	}
 	
@@ -41,4 +44,12 @@ public class Manutencao {
 		this.responsavel = responsavel;
 	}
 
+	public Integer getIdSabre() {
+		return idSabre;
+	}
+
+	public void setIdSabre(Integer idSabre) {
+		this.idSabre = idSabre;
+	}
+	
 }
