@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -17,6 +18,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.services.ManutencaoService;
 import model.services.SabresService;
+
 
 /**
  * 
@@ -46,39 +48,45 @@ public class MenuPrincipalController implements Initializable {
 	
 	@FXML
 	public void onMenuItemCadastrarAction() {
-		loadView("/gui/CadastrarSabres.fxml");
+		loadView("/gui/CadastrarSabres.fxml", x -> {});
 	}
 
 	@FXML
 	public void onMenuItemAtualizarAction() {
-		loadView("/gui/AtualizarSabres.fxml");
+		loadView("/gui/AtualizarSabres.fxml", x -> {});
 	}
 	
 	@FXML
 	public void onMenuItemListarSabresAction() {
-		loadView2("/gui/ListaSabres.fxml");
+		loadView("/gui/ListaSabres.fxml", (ListaSabresController controller) -> {
+			controller.setSabresService(new SabresService());
+			controller.updateTableViewSabres();
+		});
 	}
 	
 	@FXML
 	public void onMenuItemListarManutencoesAction() {
-		loadView3("/gui/ListaManutencoes.fxml");
+		loadView("/gui/ListaManutencoes.fxml", (ListaManutencaoController controller) -> {
+			controller.setManutencaoService(new ManutencaoService());
+			controller.updateTableViewManutencoes();
+		});
 	}
-	
+		
 	@FXML
 	public void onMenuItemPesquisarSabresAction() {
-		loadView("/gui/PesquisaSabres.fxml");
+		loadView("/gui/PesquisaSabres.fxml", x -> {});
 	}
 
 	@FXML
 	public void onMenuItemSobreAction() {
-		loadView("/gui/Sobre.fxml");
+		loadView("/gui/Sobre.fxml", x -> {});
 	}
 
 	@Override
 	public void initialize(URL uri, ResourceBundle rb) {
 	}
 
-	private synchronized void loadView(String absoluteName) {
+	private synchronized<T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
@@ -91,49 +99,8 @@ public class MenuPrincipalController implements Initializable {
 			mainVbox.getChildren().add(mainMenu);
 			mainVbox.getChildren().addAll(newVBox.getChildren());
 			
-		} catch (IOException ex) {
-			Alerts.showAlert("IOException", "Error loading view", ex.getMessage(), AlertType.ERROR);
-		}
-	}
-	
-	private synchronized void loadView2(String absoluteName) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVBox = loader.load();
-			
-			Scene mainScene = Main.getMainScene();
-			VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-			
-			Node mainMenu = mainVbox.getChildren().get(0);
-			mainVbox.getChildren().clear();
-			mainVbox.getChildren().add(mainMenu);
-			mainVbox.getChildren().addAll(newVBox.getChildren());
-			
-			ListaSabresController controller = loader.getController();
-			controller.setSabresService(new SabresService());
-			controller.updateTableViewSabres();
-			
-		} catch (IOException ex) {
-			Alerts.showAlert("IOException", "Error loading view", ex.getMessage(), AlertType.ERROR);
-		}
-	}
-	
-	private synchronized void loadView3(String absoluteName) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVBox = loader.load();
-			
-			Scene mainScene = Main.getMainScene();
-			VBox mainVbox = (VBox) ((ScrollPane) mainScene.getRoot()).getContent();
-			
-			Node mainMenu = mainVbox.getChildren().get(0);
-			mainVbox.getChildren().clear();
-			mainVbox.getChildren().add(mainMenu);
-			mainVbox.getChildren().addAll(newVBox.getChildren());
-			
-			ListaManutencaoController controller = loader.getController();
-			controller.setManutencaoService(new ManutencaoService());
-			controller.updateTableViewManutencoes();
+			T controller = loader.getController();
+			initializingAction.accept(controller);
 			
 		} catch (IOException ex) {
 			Alerts.showAlert("IOException", "Error loading view", ex.getMessage(), AlertType.ERROR);
